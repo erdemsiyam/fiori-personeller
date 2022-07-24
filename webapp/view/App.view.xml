@@ -1,0 +1,11 @@
+<mvc:View
+    controllerName="staff.controller.App"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"    
+    xmlns:mvc="sap.ui.core.mvc">
+    
+    <Shell>
+        <Label text="LSM"/>
+    </Shell>
+
+</mvc:View>
