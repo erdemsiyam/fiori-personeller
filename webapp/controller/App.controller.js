@@ -5,10 +5,9 @@ sap.ui.define(
     function (Controller) {
         "use strict";
         return Controller.extend(
-            "staff.App",
+            "staff.controller.App",
             {
                 onInit: function () {
-                    
                 }
             }
         );

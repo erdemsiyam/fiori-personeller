@@ -5,7 +5,21 @@
     xmlns:mvc="sap.ui.core.mvc">
     
     <Shell>
-        <Label text="LSM"/>
+		<App>
+			<pages>
+				<Page title="{{staffTableName}}">
+					<headerContent>
+					</headerContent>
+					<content>
+
+                        <mvc:XMLView
+                            viewName="staff.view.StaffList"/>
+
+					</content>
+				</Page>
+			</pages>
+		</App>
+
     </Shell>
 
 </mvc:View>

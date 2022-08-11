@@ -1,0 +1,15 @@
+<mvc:View
+xmlns="sap.m"
+controllerName="staff.controller.StaffList"
+xmlns:mvc="sap.ui.core.mvc">
+    <List
+        headerText="{i18n>staffTableName}"
+        class="saUiResponsiveMargin"
+        width="auto"
+        items="{staff>/Staffs}">
+        <items>
+            <ObjectListItem
+                title="{staff>name}"/>
+        </items>
+    </List>
+</mvc:View>
