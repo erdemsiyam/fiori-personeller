@@ -1,56 +1,98 @@
-sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel"
-], function (Controller, JSONModel) {
-    "use strict"
+sap.ui.define(
+    [
+        "sap/ui/core/mvc/Controller",
+        "sap/ui/model/json/JSONModel",
+        "sap/ui/model/Filter",
+        "sap/ui/model/FilterOperator",
+        "sap/ui/core/Fragment",
+        "sap/ui/model/Sorter"
+    ],
+    function (Controller, JSONModel, Filter, FilterOperator, Fragment, Sorter) {
+        "use strict"
 
-    return Controller.extend("staff.controller.StaffList", {
-        onInit: function () {
-            var oViewModel = new JSONModel({
-                    "Staffs" : [
-                        {
-                            "id":"1",
-                            "name":"Hakan",
-                            "surname":"Dereli",
-                            "gender":"M",
-                            "birth_date":"1997-05-23T00:00:00",
-                            "register_date":"2020-02-03T00:00:00",
-                            "address":"Kültür Mh. Cengiz Sk. No:26B, Hisarlar/Eskişehir",
-                            "department":"IT"
-                        },
-                        {
-                            "id":"2",
-                            "name":"Nevriye",
-                            "surname":"Budak",
-                            "gender":"F",
-                            "birth_date":"1998-02-09T00:00:00",
-                            "register_date":"2020-08-13T00:00:00",
-                            "address":"Çankıran Mh. Nergiz Sk. No:4, Tuncalı/Aydın",
-                            "department":"HR"
-                        },
-                        {
-                            "id":"3",
-                            "name":"Gülhan",
-                            "surname":"Siverek",
-                            "gender":"F",
-                            "birth_date":"1992-11-29T00:00:00",
-                            "register_date":"2021-01-24T00:00:00",
-                            "address":"Çalı Mh. Kader Sk. No:4, Lapseki/Çanakkale",
-                            "department":"IT"
-                        },
-                        {
-                            "id":"4",
-                            "name":"Metehan",
-                            "surname":"Şağı",
-                            "gender":"M",
-                            "birth_date":"1999-04-21T00:00:00",
-                            "register_date":"2021-07-05T00:00:00",
-                            "address":"Sümrü Mh. Özgenç Sk. No:4, Alaca/Kırklareli",
-                            "department":"HR"
-                        }
-                    ]
-            });
-            this.getView().setModel(oViewModel, "staff")
-        }
-    })
-}) 
+        return Controller.extend(
+            "project.staff.controller.StaffList",
+            {
+                onInit: function () {
+                    
+                },
+                onPressItem: function(){
+
+                },
+                onSearch: function(oEvent){
+                    var oFilters= [];
+                    var sQuery = oEvent.getParameter("query"); // Hali hazırda bir query varsa (filter,sort) bunları da dahil eder
+
+                    if(sQuery){
+                        oFilters.push(
+                            new Filter(
+                            {
+                                    filters:[
+                                        new Filter(
+                                            {
+                                                path: "name",
+                                                operator: FilterOperator.Contains,
+                                                value1: sQuery
+                                            }
+                                        ),
+                                        new Filter(
+                                            {
+                                                path: "surname",
+                                                operator: FilterOperator.Contains,
+                                                value1: sQuery
+                                            }
+                                        ),
+                                    ],
+                                    and: false,
+                            }
+                            ),
+                        );
+                    }
+
+                    // Filtrede de, sortta da tabloyu manipüle etme
+                    var oTable = this.byId("table1");
+                    var oBinding = oTable.getBinding("items"); // aggregationdaki itemleri aldık
+                    oBinding.filter(oFilters);
+                },
+                btnSortOnClicked: function (){
+                    // Get Current View
+                    var oView = this.getView();
+
+                    // Load the fragment
+                    if(!this.byId("sortDialog")) { // fragmentin id'si(fragment.xml'de) if not exists, create
+                        Fragment.load({
+                            id: oView.getId(),
+                            name: "project.staff.fragment.SortDialog",
+                            controller: this, // bu controllerde halledeceğiz fonksiyonlarını
+                        }).then(
+                            function(oDialog) {
+                                // open dialog
+                                oView.addDependent(oDialog); // connect the dialog to the root view of component (models, lifecycle)
+                                oDialog.open();
+                            }
+                        );
+                    } else { // if exists, just call it
+                        this.byId("sortDialog").open();
+                    }
+                },
+                onSortDialogConfirm: function (oEvent) {
+
+                    var oSortItem = oEvent.getParameter("sortItem"); // sort fragmentindeki sort elemanları (<sortItems>) alınır
+                    var sColumnPath = "name"; // default sütun seçtik
+                    var bDescending = oEvent.getParameter("sortDescending"); // viewSettings(fragment.xmldeki) default propertysi olan asc desc
+                    var oSorters = [];
+
+                    if(oSortItem){
+                        sColumnPath = oSortItem.getKey(); // Sort sütun seçildiyse o sütun alınır (name idi)
+                    }
+                    oSorters.push(new Sorter(sColumnPath, bDescending));
+
+                    // Filtrede de, sortta da tabloyu manipüle etme
+                    var oTable = this.byId("table1");
+                    var oBinding = oTable.getBinding("items"); // aggregationdaki itemleri aldık
+                    oBinding.sort(oSorters);
+                }
+            }
+        )
+    }
+)

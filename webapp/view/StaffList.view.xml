@@ -1,15 +1,42 @@
 <mvc:View
 xmlns="sap.m"
-controllerName="staff.controller.StaffList"
-xmlns:mvc="sap.ui.core.mvc">
-    <List
-        headerText="{i18n>staffTableName}"
-        class="saUiResponsiveMargin"
-        width="auto"
-        items="{staff>/Staffs}">
-        <items>
-            <ObjectListItem
-                title="{staff>name}"/>
-        </items>
-    </List>
+controllerName="project.staff.controller.StaffList"
+xmlns:mvc="sap.ui.core.mvc"
+displayBlock="true">
+
+    <Page id="page1" title="{i18n>staffListPageTitle}">
+        <content>
+            <Table id="table1" items="{staff>/Staffs}" growing="true" growingTreshold="25">
+                <headerToolbar>
+                    <OverflowToolbar id="toolbar1">
+                        <Title id="title1" text="{i18n>staffTableName}"/>
+                        <ToolbarSpacer id="tbs1"/>
+                        <SearchField id="search1" width="20%" search="onSearch" value="{/title}"/>
+                        <Button tooltip="{i18n>sortTooltip}" id="btnSort" icon="sap-icon://sort" press="btnSortOnClicked"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="column1" width="12em">
+                        <Text id="txtColumn1" text="{i18n>columnId}"/>
+                    </Column>
+                    <Column id="column2" width="12em">
+                        <Text id="txtColumn2" text="{i18n>columnName}"/>
+                    </Column>
+                    <Column id="column3" width="12em">
+                        <Text id="txtColumn3" text="{i18n>columnSurname}"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="cli1" type="Navigation" press="onPressItem">
+                        <cells>
+                            <ObjectIdentifier id="oiId" title="{staff>id}"/>
+                            <Text id="txtName" text="{staff>name}"/>
+                            <Text id="txtSurname" text="{staff>surname}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+
 </mvc:View>

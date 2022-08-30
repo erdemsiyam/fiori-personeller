@@ -1,25 +1,12 @@
 <mvc:View
-    controllerName="staff.controller.App"
+    controllerName="project.staff.controller.App"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"    
     xmlns:mvc="sap.ui.core.mvc">
     
-    <Shell>
-		<App>
-			<pages>
-				<Page title="{{staffTableName}}">
-					<headerContent>
-					</headerContent>
-					<content>
-
-                        <mvc:XMLView
-                            viewName="staff.view.StaffList"/>
-
-					</content>
-				</Page>
-			</pages>
-		</App>
-
+    <Shell id="shell1">
+        <App id="app1">
+        </App>
     </Shell>
 
 </mvc:View>

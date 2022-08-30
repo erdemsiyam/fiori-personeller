@@ -1,0 +1,67 @@
+sap.ui.define(
+    [
+        "sap/ui/model/json/JSONModel",
+        "sap/ui/Device"
+    ], 
+    function (JSONModel, Device) {
+        "use strict";
+
+        return {
+            createDeviceModel: function () {
+                var oModel = new JSONModel(Device);
+                oModel.setDefaultBindingMode("OneWay");
+                return oModel;
+            },
+            createMockDataModel: function() {
+                var oModel2 = new JSONModel(
+                    {
+                        "Staffs" : [
+                            {
+                                "id":"1",
+                                "name":"Hakan",
+                                "surname":"Dereli",
+                                "gender":"M",
+                                "birth_date":"1997-05-23T00:00:00",
+                                "register_date":"2020-02-03T00:00:00",
+                                "address":"Kültür Mh. Cengiz Sk. No:26B, Hisarlar/Eskişehir",
+                                "department":"IT"
+                            },
+                            {
+                                "id":"2",
+                                "name":"Nevriye",
+                                "surname":"Budak",
+                                "gender":"F",
+                                "birth_date":"1998-02-09T00:00:00",
+                                "register_date":"2020-08-13T00:00:00",
+                                "address":"Çankıran Mh. Nergiz Sk. No:4, Tuncalı/Aydın",
+                                "department":"HR"
+                            },
+                            {
+                                "id":"3",
+                                "name":"Gülhan",
+                                "surname":"Siverek",
+                                "gender":"F",
+                                "birth_date":"1992-11-29T00:00:00",
+                                "register_date":"2021-01-24T00:00:00",
+                                "address":"Çalı Mh. Kader Sk. No:4, Lapseki/Çanakkale",
+                                "department":"IT"
+                            },
+                            {
+                                "id":"4",
+                                "name":"Metehan",
+                                "surname":"Şağı",
+                                "gender":"M",
+                                "birth_date":"1999-04-21T00:00:00",
+                                "register_date":"2021-07-05T00:00:00",
+                                "address":"Sümrü Mh. Özgenç Sk. No:4, Alaca/Kırklareli",
+                                "department":"HR"
+                            }
+                        ]
+                    }
+                );
+                return oModel2;
+            }
+
+        };
+    }
+);

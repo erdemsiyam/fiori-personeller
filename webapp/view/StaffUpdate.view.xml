@@ -1,0 +1,14 @@
+<mvc:View
+xmlns="sap.m"
+controllerName="project.staff.controller.StaffUpdate"
+xmlns:mvc="sap.ui.core.mvc"
+displayBlock="true">
+
+    <Page id="page2">
+        <content>
+        <Text id="txtName2" text="asdasd"/>
+
+        </content>
+    </Page>
+
+</mvc:View>

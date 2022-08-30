@@ -3,30 +3,23 @@
 	"start_url": "<startUrl>",
     "sap.app": {
         "_version": "1.1.0",
-        "id": "my.staff",
+        "id": "project.staff",
         "type": "application",
-		"i18n": {
-			"bundleUrl": "i18n/i18n.properties",
-			"supportedLocales": [
-				""
-			],
-			"fallbackLocale": ""
-		},
+        "i18n": "i18n/i18n.properties",
         "applicationVersion": {
             "version": "1.0.0"
         },
         "title": "{{appTitle}}",
 		"description": "{{appDescription}}",
         "tags": {
-            "keywords": [
-                "{{<keyword1>}}", "{{<keyword2>}}"
-            ]
+            "keywords": []
         },
         "dataSources": {
-            "<dataSourceAlias>": {
-                "uri": "<uri>",
+            "invoiceRemote": {
+                "uri": "https://services.odata.org/V2/Northwind/Northwind.svc/",
+                "type": "OData",
                 "settings": {
-                    "localUri": "<localUri>"
+                    "odataVersion": "2.0"
                 }
             }
         }
@@ -55,56 +48,81 @@
         "_version": "1.1.0",
         "resources": {
             "js": [
-                {
-                    "uri": "<uri>"
-                }
             ],
             "css": [
-                {
-                    "uri": "<uri>",
-                    "id": "<id>"
-                }
             ]
         },
         "dependencies": {
-            "minUI5Version": "<minUI5Version>",
+            "minUI5Version": "1.60",
             "libs": {
-                "<ui5lib1>": {                   
-                    "minVersion": "<minVersion1>"
-                },
-                "<ui5lib2>": {                   
-                    "minVersion": "<minVersion2>"
-                }
-            },
-            "components": {
-                "<ui5component1>": {
-                    "minVersion": "<minComp1Version>"
-                }
+                "sap.m": {}
             }
         },
         "models": {
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName":  "project.staff.i18n.i18n",
+                    "supportedLocales": [""],
+                    "fallbackLocale": ""
+                },
                 "uri": "<uriRelativeToManifest>"
-            },
-            "staff":{
-                "type": "sap.ui.model.json.JSONModel",
-                "uri": "data/Staff.json"
             }
         },
         "rootView": {
-            "viewName": "staff.view.App",
+            "viewName": "project.staff.view.App",
             "type": "XML",
             "async": true,
-            "id": "app"
+            "id": "app1"
         },
         "handleValidation": false,
         "config": {
           
         },
         "routing": {
-          
-        },
+            "config": {
+              "routerClass": "sap.m.routing.Router",
+              "viewType": "XML",
+              "async": true,
+              "viewPath": "project.staff.view",
+              "controlAggregation": "pages",
+              "controlId": "app1",
+              "clearControlAggregation": false
+            },
+            "routes": [
+              {
+                  "name": "StaffList",
+                  "pattern": "",
+                  "target": [
+                      "TargetStaffList"
+                  ]
+              },
+              {
+                  "name": "StaffUpdate",
+                  "pattern": "update/{id}",
+                  "target": [
+                      "TargetStaffUpdate"
+                  ]
+              }
+            ],
+            "targets": {
+              "TargetStaffList": {
+                "viewType": "XML",
+                "viewId": "StaffList",
+                "viewName": "StaffList"
+              },
+              "TargetStaffUpdate" : {
+                "viewType": "XML",
+                "viewId": "StaffUpdate",
+                "viewName": "StaffUpdate"
+              },
+              "App" : {
+                "viewType": "XML",
+                "viewId": "App",
+                "viewName": "App"
+              }
+            }
+          },
         "extends": {
             "component" : "<extendedComponentId>",
 			"minVersion": "<minComp1Version>",
