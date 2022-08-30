@@ -22,8 +22,6 @@ sap.ui.define(
                     var oItem = oEvent.getSource();
                     var oSelectedStaff = oItem.getBindingContext("staff").getObject();
                     
-                    
-
                     // Load the fragment
                     if(!this.byId("infoDialog")) { // fragmentin id'si(fragment.xml'de) if not exists, create
                         Fragment.load({
@@ -129,7 +127,19 @@ sap.ui.define(
                     var oTable = this.byId("table1");
                     var oBinding = oTable.getBinding("items"); // aggregationdaki itemleri aldık
                     oBinding.sort(oSorters);
-                }
+                },
+                onEditBtnClicked: function() {},
+                onDeleteBtnClicked: function(oEvent) {
+
+                    // Get Current View
+                    var oSelectedItem = oEvent.getSource().getParent();
+                    var oPath = oSelectedItem.getBindingContext("staff").getPath();
+                    var iIndex = parseInt(oPath.substring(oPath.lastIndexOf('/') +1));
+                    var oData = this.getView().getModel("staff").getData();
+                    oData["Staffs"].splice(iIndex, 1);
+                    this.getView().setModel(new JSONModel(oData),"staff");
+
+                },
             }
         )
     }

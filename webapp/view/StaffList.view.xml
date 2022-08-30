@@ -25,6 +25,9 @@ displayBlock="true">
                     <Column id="column3" width="12em">
                         <Text id="txtColumn3" text="{i18n>columnSurname}"/>
                     </Column>
+                    <Column id="column4" width="12em">
+                        
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem id="cli1" type="Navigation" press="onPressItem">
@@ -32,6 +35,10 @@ displayBlock="true">
                             <ObjectIdentifier id="oiId" title="{staff>id}"/>
                             <Text id="txtName" text="{staff>name}"/>
                             <Text id="txtSurname" text="{staff>surname}"/>
+                            <HBox>
+                              <Button icon="sap-icon://edit" type="Transparent" press="onEditBtnClicked"/>
+                              <Button icon="sap-icon://delete" type="Transparent" press="onDeleteBtnClicked"/>
+                            </HBox>
                         </cells>
                     </ColumnListItem>
                 </items>

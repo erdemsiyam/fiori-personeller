@@ -7,7 +7,6 @@
 
         <content>
             <HBox justifyContent="Center">
-
                 <VBox alignItems="Start">
                     <Text text="{i18n>infoDialogName} :"/>
                     <Text text="{i18n>infoDialogSurname} :"/>
