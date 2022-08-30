@@ -1,0 +1,42 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core" >
+   <Dialog
+      id="infoDialog"
+      title="{i18n>infoDialogTitle}">
+
+        <content>
+            <HBox justifyContent="Center">
+
+                <VBox alignItems="Start">
+                    <Text text="{i18n>infoDialogName} :"/>
+                    <Text text="{i18n>infoDialogSurname} :"/>
+                    <Text text="{i18n>infoDialogGender} :"/>
+                    <Text text="{i18n>infoDialogBirthDate} :"/>
+                    <Text text="{i18n>infoDialogRegisterDate} :"/>
+                    <Text text="{i18n>infoDialogAddress} :"/>
+                    <Text text="{i18n>infoDialogDepartment} :"/>
+                </VBox>
+                <VBox alignItems="Center">
+                    <Text text="{/name}"/>
+                    <Text text="{/surname}"/>
+                    <Text text="{/gender}"/>
+                    <Text text="{/birth_date}"/>
+                    <Text text="{/register_date}"/>
+                    <Text text="{/address}"/>
+                    <Text text="{/department}"/>
+                </VBox>
+            </HBox>
+        </content>
+
+        <beginButton> <!-- buton için koyu mavi bir panel oluşturur-->
+            <!-- Fragmantı kapatmak için buton -->
+            <Button
+                text="{i18n>infoDialogCloseButtonText}"
+                press=".btnInfoDialogCloseOnClicked" >
+            <!-- onClose tıklarsa HelloDialog.js deki close func çalışır-->
+            </Button>
+        </beginButton>
+
+   </Dialog>
+</core:FragmentDefinition>

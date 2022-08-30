@@ -16,8 +16,46 @@ sap.ui.define(
                 onInit: function () {
                     
                 },
-                onPressItem: function(){
+                onPressItem: function(oEvent){
+                    // Get Current View
+                    var oView = this.getView();
+                    var oItem = oEvent.getSource();
+                    var oSelectedStaff = oItem.getBindingContext("staff").getObject();
+                    
+                    
 
+                    // Load the fragment
+                    if(!this.byId("infoDialog")) { // fragmentin id'si(fragment.xml'de) if not exists, create
+                        Fragment.load({
+                            id: oView.getId(),
+                            name: "project.staff.fragment.InfoDialog",
+                            controller:{
+                                // inner anonim controller yaptık buna
+                                btnInfoDialogCloseOnClicked: function() {
+                                    oView.byId("infoDialog").close();
+                                }
+                            }
+                        }).then(
+                            function(oDialog) {
+
+                                // open dialog
+                                oView.addDependent(oDialog); // connect the dialog to the root view of component (models, lifecycle)
+                                oDialog.open();
+
+                                // set model (https://answers.sap.com/questions/749337/table-row-binding-on-fragement.html)
+                                var oModel = new JSONModel();
+                                oModel.setData(oSelectedStaff);
+                                oDialog.setModel(oModel);
+                            }
+                        );
+                    } else { // if exists, just call it
+                        this.byId("infoDialog").open();
+
+                        // set model (https://answers.sap.com/questions/749337/table-row-binding-on-fragement.html)
+                        var oModel = new JSONModel();
+                        oModel.setData(oSelectedStaff);
+                        this.byId("infoDialog").setModel(oModel);
+                    }
                 },
                 onSearch: function(oEvent){
                     var oFilters= [];
